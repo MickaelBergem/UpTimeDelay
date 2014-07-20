@@ -1,0 +1,28 @@
+{% load i18n staticfiles %}
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
+        <link href="{% static 'css/styles-supplementaires.css'%}" rel="stylesheet">
+        <title>{% block titre %}{% trans "UpTimeDelay &bull; Monitor websites in a lightweigh way" %}{% endblock %}</title>
+        {% block entete %}
+            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+            <script src="{% static 'js/jquery-1.8.2.min.js'%}"></script>
+        {% endblock %}
+    </head>
+    <body>
+    {% block menu_navigation %}{% include 'navbar.html' %}{% endblock %}
+ 
+    <div class="{% block classe_container %}container{% endblock %}">
+        {% block content %}
+        {% block BSCT_MAIN %}{% endblock %}
+        {% endblock %}
+    </div>
+    {% block footer %}
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    {% block extrajavascript %}{% endblock %}
+    {% endblock %}
+    </body>
+</html>
