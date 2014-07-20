@@ -14,13 +14,16 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
          <li>
-          <a href="{% url "home" %}">{% trans "Home" %}</b></a>
+          <a href="{% url "home" %}">{% trans "Home" %}</a>
         </li>
          <li>
-          <a href="{% url "host_list" %}">{% trans "Hosts" %}</b></a>
+          <a href="{% url "host_list" %}">{% trans "Hosts" %}</a>
         </li>
          <li>
-          <a href="{% url "monitor_list" %}">{% trans "Monitors" %}</b></a>
+          <a href="{% url "monitor_list" %}">{% trans "Monitors" %}</a>
+        </li>
+         <li>
+          <a href="{% url "heartbeat_list" %}">{% trans "Heartbeats" %}</a>
         </li>
        </ul>
     </div><!-- /.navbar-collapse -->

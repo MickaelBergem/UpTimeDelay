@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'bootstrapform',
     'bsct',
     'Monitors',
+    'NetworkTests',
     'Site',
 )
 
