@@ -26,7 +26,7 @@ class Monitor(models.Model):
     host = models.ForeignKey(Host, verbose_name=_('Host'))
     
     def __unicode__(self):
-        return "Monitor {} for {}".format(self.type, self.hostname)
+        return "Monitor {} for {}".format(self.type, self.host)
         
     class Meta:
         verbose_name = _('Monitor')
