@@ -25,6 +25,7 @@ class Monitor(BSCTModelMixin , models.Model):
     """ A monitor is used to check a host's health in a certain way """
     type = models.CharField(choices=MONITOR_TYPES, default='http-head', verbose_name=_('Type'), max_length=10)
     host = models.ForeignKey(Host, verbose_name=_('Host'))
+    periodicity = models.IntegerField(default=30,verbose_name=_('Periodicity (minutes)'))
     
     def __unicode__(self):
         return "Monitor {} for {}".format(self.type, self.host)

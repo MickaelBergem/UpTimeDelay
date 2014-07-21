@@ -11,8 +11,11 @@ class HeartBeat(BSCTModelMixin , models.Model):
     monitor = models.ForeignKey(Monitor, verbose_name=_('Monitor master'))
     time = models.DateTimeField(default=datetime.now(), verbose_name=_('Date of triggering'))
     is_up = models.BooleanField(verbose_name=_('Host is up'))
-    delay = models.FloatField(verbose_name=_('Delay'))
+    delay = models.FloatField(verbose_name=_('Delay'), null=True, blank=True)
     raw_output = models.TextField(verbose_name=_('Raw output'))
+    
+    def __unicode__(self):
+        return _("Heartbeat for {} at {}".format(self.monitor.host, self.time))
     
     class Meta:
         verbose_name = _('HeartBeat')
