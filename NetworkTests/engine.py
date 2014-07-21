@@ -4,6 +4,11 @@
 import subprocess
 import re
 import string
+from django.db.models import F
+from datetime import timedelta
+from django.utils import timezone
+
+import cronjobs
 
 from Monitors.models import Host, Monitor, MONITOR_TYPES
 from models import HeartBeat
@@ -13,7 +18,12 @@ class MonitorEngine:
         hb = HeartBeat()
         hb.monitor = mon
         
-        if mon.type == 'ping':
+        if mon.type == 'ping' or mon.type == 'P':
+            # First, register the execution
+            hb.monitor.last_job = timezone.now()
+            hb.monitor.next_job = timezone.now() + timedelta(minutes=hb.monitor.periodicity)
+            hb.monitor.save()
+            
             # Let's ping !
             self.raw_ping(mon.host.hostname)
             
@@ -25,7 +35,7 @@ class MonitorEngine:
             # Parsing the response :
             delays = []
             for line in hb.raw_output.split("\n"):
-                ping_body = r"^\d+ bytes from (?P<hostname>[^ ]+) \([0-9a-f.:]+\): icmp_seq=\d+ ttl=\d+ time=(?P<delay>.*)"
+                ping_body = r"^\d+ bytes from ((?P<hostname>[^ ]+) \([0-9a-f.:]+\)|[0-9a-f.:]+): icmp_seq=\d+ ttl=\d+ time=(?P<delay>.*)"
                 
                 m = re.match(ping_body, line, re.I)
                 if m:
@@ -42,8 +52,12 @@ class MonitorEngine:
                         raise Exception("Unable to parse delay : {}".format(delay))
                 #else:
                     #print line
-                    
-            hb.delay = sum(delays)/len(delays)
+            
+            # Computing the average delay
+            if len(delays) == 0:
+                hb.delay = 0
+            else:
+                hb.delay = sum(delays)/len(delays)
         else:
             raise Exception("Type '{}' not recognized !".format(mon.type))
         
@@ -60,4 +74,3 @@ class MonitorEngine:
             self.ping_response = cm[0]
         else:
             self.ping_response = 'Not loaded yet...'
-        

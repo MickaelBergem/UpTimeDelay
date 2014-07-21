@@ -17,6 +17,8 @@ class HeartBeat(BSCTModelMixin , models.Model):
     def __unicode__(self):
         return _("Heartbeat for {} at {}".format(self.monitor.host, self.time))
     
+    def delay_detail(self):
+        return "{} ms".format(self.delay)
     class Meta:
         verbose_name = _('HeartBeat')
         verbose_name_plural = _('HeartBeats')
