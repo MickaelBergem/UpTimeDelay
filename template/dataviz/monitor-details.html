@@ -1,0 +1,17 @@
+{% load i18n staticfiles %}
+
+<div class="panel panel-default panel-monitor">
+  <div class="panel-sidebar">
+    {{ object.type}}
+  </div>
+  <div class="panel-body">
+   <div class="panel-left">
+    <span class="pmon-ip">{{ object.host.ip}}</span>
+    <a class="pmon-hostname" href="http://{{ object.host.hostname}}/">{{ object.host.hostname}}</a>
+   </div>
+   <div class="panel-right panel-stats">
+    <span class="pmon-block stat-uptimepc">{{ object.uptime_pc}}</span>
+    <span class="pmon-block stat-delay">{{ object.meandelay}}</span>
+   </div>
+  </div>
+</div>

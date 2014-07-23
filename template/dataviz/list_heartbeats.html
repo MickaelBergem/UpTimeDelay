@@ -1,0 +1,12 @@
+{% extends 'bsct/plain/list.html' %}
+{% load i18n staticfiles %}
+
+{% block titre %}{% trans "Heartbeats list" %}{% endblock %}
+
+{% block BSCT_CONTENT %}
+
+{% include 'dataviz/monitor-details.html' %}
+
+{% include 'dataviz/table-delay.html' %}
+
+{% endblock %}

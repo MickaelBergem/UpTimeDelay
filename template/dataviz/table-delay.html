@@ -1,0 +1,19 @@
+{% load i18n staticfiles %}
+
+<table class="table table-bordered table-hover table-compact">
+<thead>
+<tr>
+<th>{% trans "Time" %}</th>
+<th>{% trans "Delay" %}</th>
+</thead>
+<tbody>
+{% for hb in object.heartbeats %}
+<tr{% if not hb.is_up %} class="danger"{% endif %}>
+ <td><time datetime="{{ hb.time }}">{{ hb.time }}</time></td>
+ <td><strong>{{ hb.delay }}</strong> ms</td>
+</tr>
+{% endfor %}
+</tbody>
+<tfoot>
+</tfoot>
+</table>
