@@ -51,6 +51,7 @@ INSTALLED_APPS = (
     'NetworkTests',
     'Site',
     'cronjobs',
+    'debug_toolbar',
 )
 
 MIDDLEWARE_CLASSES = (
