@@ -5,8 +5,6 @@ from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import get_object_or_404
 from NetworkTests.models import HeartBeat
 from Monitors.models import Host,Monitor
-from datetime import datetime, date
-from graphur.views import GrapheView
 
 # Showing HB
 class PerfMonitor( DetailView ):
