@@ -1,0 +1,54 @@
+{% load staticfiles %}
+<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="{% static 'js/excanvas.min.js'%}"></script><![endif]-->
+<script src="{% static 'js/jquery.jqplot.min.js'%}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/jquery.jqplot.min.css'%}" />
+
+<div id="chart1"></div>
+
+<script>
+$(document).ready(function(){
+
+  var plot1 = $.jqplot ('chart1', [
+{% for plot in object_list %}
+{{ plot.plot_vals|safe }},
+{% endfor %}
+  ] ,
+    {
+        title:'{{ titre_graphe }}',
+          axes:{
+            xaxis:{
+                renderer:$.jqplot.DateAxisRenderer,
+                tickOptions:{
+                    formatString:'%b&nbsp;%Y'
+                }
+            },
+            yaxis:{
+                min:0,
+                tickOptions:{
+                    formatString:'%.0f €'
+                }
+            }
+        },
+        highlighter: {
+            show: true,
+            sizeAdjust: 7.5
+        },
+        cursor: {
+            show: false
+        },
+        legend: {
+            show: true,
+            labels: [{% for plot in object_list %}
+'{{ plot }}',
+{% endfor %}
+                    ]
+        }
+    }
+    );
+});
+</script>
+<script src="{% static 'js/plugins/jqplot.highlighter.min.js'%}"></script>
+<script src="{% static 'js/plugins/jqplot.canvasTextRenderer.min.js'%}"></script>
+<script src="{% static 'js/plugins/jqplot.canvasAxisLabelRenderer.min.js'%}"></script>
+<script src="{% static 'js/plugins/jqplot.dateAxisRenderer.min.js'%}"></script>
+<script src="{% static 'js/plugins/jqplot.json2.min.js'%}"></script>

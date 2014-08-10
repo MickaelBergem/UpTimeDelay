@@ -52,6 +52,8 @@ INSTALLED_APPS = (
     'Site',
     'cronjobs',
     'debug_toolbar',
+    'graphur',
+    'jqplot',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -108,3 +110,4 @@ STATICFILES_DIRS = (
         'static', # Contient entre autres les fichiers de Bootstrap 3.1.0
     ),
 )
+    
