@@ -36,7 +36,7 @@ class MonitorEngine:
             # Parsing the response :
             delays = []
             for line in hb.raw_output.split("\n"):
-                ping_body = r"^\d+ bytes from ((?P<hostname>[^ ]+) \([0-9a-f.:]+\)|[0-9a-f.:]+): icmp_seq=\d+ ttl=\d+ time=(?P<delay>.*)"
+                ping_body = r"^\d+ bytes from ((?P<hostname>[^ ]+) \([0-9a-f.:]+\)|[0-9a-f.:]+): icmp_[rs]eq=\d+ ttl=\d+ time=(?P<delay>.*)"
                 
                 m = re.match(ping_body, line, re.I)
                 if m:
