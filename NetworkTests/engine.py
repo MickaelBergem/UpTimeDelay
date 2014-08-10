@@ -7,6 +7,7 @@ import string
 from django.db.models import F
 from datetime import timedelta
 from django.utils import timezone
+from django.conf import settings
 
 import cronjobs
 
@@ -67,10 +68,14 @@ class MonitorEngine:
         hb.save()
         
     def raw_ping(self, host, asynchronous=False):
-        self.ping_response_raw = subprocess.Popen(["/usr/bin/ping", "-c4", "-w100", "-i0.2", host], stdout=subprocess.PIPE)
-        
-        if not asynchronous:
-            cm = self.ping_response_raw.communicate()
-            self.ping_response = cm[0]
-        else:
-            self.ping_response = 'Not loaded yet...'
+        try:
+            self.ping_response_raw = subprocess.Popen([settings.PING_CMD, "-c4", "-w100", "-i0.2", host], stdout=subprocess.PIPE)
+
+            if not asynchronous:
+                cm = self.ping_response_raw.communicate()
+                self.ping_response = cm[0]
+            else:
+                self.ping_response = 'Not loaded yet...'
+
+        except OSError:
+            raise Exception('ping executable not found ! Please set the PING_CMD settings in the settings.py file :)')

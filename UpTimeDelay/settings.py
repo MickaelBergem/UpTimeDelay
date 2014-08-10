@@ -35,6 +35,8 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Path to PING command
+PING_CMD = '/usr/bin/ping'
 
 # Application definition
 
