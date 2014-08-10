@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 """
 Django settings for UpTimeDelay project.
 
@@ -25,35 +26,24 @@ TEMPLATE_DIRS = (
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '(l^bn*x&31vy3lyu9ceskz8dec^yue99u_^c*iyczz7g1$a430'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-TEMPLATE_DEBUG = True
-
-ALLOWED_HOSTS = []
-
-# Path to PING command
-PING_CMD = '/usr/bin/ping'
-
 # Application definition
 
-INSTALLED_APPS = (
+DEFAULT_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bootstrapform',
-    'bsct',
     'Monitors',
     'NetworkTests',
     'Site',
+)
+
+THIRD_PARTY_APPS = (
+    'bootstrapform',
+    'bsct',
     'cronjobs',
-    'debug_toolbar',
     'graphur',
     'jqplot',
 )
@@ -71,32 +61,6 @@ ROOT_URLCONF = 'UpTimeDelay.urls'
 
 WSGI_APPLICATION = 'UpTimeDelay.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/1.6/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
-# Internationalization
-# https://docs.djangoproject.com/en/1.6/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = False
-
-
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
@@ -112,4 +76,11 @@ STATICFILES_DIRS = (
         'static', # Contient entre autres les fichiers de Bootstrap 3.1.0
     ),
 )
-    
+
+try:
+    from local_settings import *
+except ImportError:
+    from default_settings import *
+
+# Applications to load
+INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS
