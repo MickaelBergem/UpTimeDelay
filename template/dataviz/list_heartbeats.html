@@ -1,11 +1,13 @@
 {% extends 'bsct/plain/list.html' %}
-{% load i18n staticfiles %}
+{% load i18n staticfiles graphur %}
 
 {% block titre %}{% trans "Heartbeats list" %}{% endblock %}
 
 {% block BSCT_CONTENT %}
 
 {% include 'dataviz/monitor-details.html' %}
+
+{{ object.heartbeats|graph_delay_pastNd:1 }}
 
 {% include 'dataviz/table-delay.html' %}
 

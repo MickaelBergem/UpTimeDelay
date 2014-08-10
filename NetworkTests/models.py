@@ -19,6 +19,13 @@ class HeartBeat(BSCTModelMixin , models.Model):
     
     def delay_detail(self):
         return "{} ms".format(self.delay)
+
+    def y_value(self):
+        return self.delay
+
+    def x_value(self):
+        return self.time.ctime()
+
     class Meta:
         verbose_name = _('HeartBeat')
         verbose_name_plural = _('HeartBeats')
