@@ -7,8 +7,17 @@
 
 {% include 'dataviz/monitor-details.html' %}
 
+{% if object.heartbeats|length > 0 %}
 {{ object.heartbeats|graph_delay_pastNd:1 }}
 
 {% include 'dataviz/table-delay.html' %}
 
+{% else %}
+
+<div class="alert alert-warning">
+<!-- No data yet ! -->
+{% trans "No data yet..." %}
+</div>
+
+{% endif %}
 {% endblock %}
