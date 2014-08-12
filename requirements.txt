@@ -4,3 +4,4 @@ python-dateutil
 django-debug-toolbar
 django-cronjobs
 coverage
+python-coveralls
