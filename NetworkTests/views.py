@@ -19,11 +19,18 @@ class PerfMonitor(DetailView):
 
         if len(hbs) > 0:
             context['object'].uptime_pc = round(100.0 * len(hbs.filter(is_up=True)) / len(hbs))
-            context['object'].meandelay = round(sum(hb.delay for hb in hbs if hb.is_up) / len(hbs))
+            context['object'].meandelay = round(sum(hb.delay for hb in hbs if hb.is_up) / len(hbs.filter(is_up=True)), 1)
         else:
             context['object'].uptime_pc = "NA"
             context['object'].meandelay = "NA"
 
         context['object'].heartbeats = hbs
+
+        try:
+            is_up = HeartBeat.objects.filter(monitor=context['object']).latest("time").is_up
+            context['object'].state = "up" if is_up else "down"
+
+        except HeartBeat.DoesNotExist:
+            context['object'].state = "unknown"
 
         return context

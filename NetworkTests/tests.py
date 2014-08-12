@@ -50,21 +50,3 @@ class PingTest(TestCase):
             
             self.assertNotEqual(hb1.raw_output, ''
                             , msg=  "The raw_output must never be empty")
-
-
-class PerfMonitorTest(TestCase):
-    """ Test of the view PerfMonitor """
-
-    def setUp(self):
-        # Create a test host and monitor
-
-        self.h1 = Host.objects.create(hostname="www.securem.eu")
-        self.m1 = Monitor.objects.create(type='ping', host=self.h1)
-
-        self.response = self.client.get(reverse('monitor_detail', kwargs={'pk':1}), follow=True)
-
-    def test_if_reacheable(self):
-        self.assertEqual(self.response.status_code, 200,
-                         "The page should respond with a HTTP 200 code")
-        self.assertContains(self.response, "<!-- No data yet ! -->",
-                         "The page should say there is no data yet")

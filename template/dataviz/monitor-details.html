@@ -1,7 +1,7 @@
 {% load i18n staticfiles %}
 
 <div class="panel panel-default panel-monitor">
-  <div class="panel-sidebar">
+  <div class="panel-sidebar {% if object.state == "up" %}sidebar-host-up{%elif object.state == "down" %}sidebar-host-down{%else%}sidebar-host-unknown{%endif%}">
     {{ object.type}}
   </div>
   <div class="panel-body">
