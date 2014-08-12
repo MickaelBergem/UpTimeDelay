@@ -17,3 +17,5 @@ Status
 ---
 
 [ ![Codeship Status for MickaelBergem/UpTimeDelay](https://www.codeship.io/projects/f8960bf0-02d9-0132-b3d6-02c5d397c789/status)](https://www.codeship.io/projects/30324)
+
+[![Coverage Status](https://coveralls.io/repos/MickaelBergem/UpTimeDelay/badge.png)](https://coveralls.io/r/MickaelBergem/UpTimeDelay)
