@@ -3,12 +3,11 @@ from datetime import datetime
 from django.utils.translation import ugettext as _
 from bsct.models import BSCTModelMixin
 
-from Monitors.models import Host, Monitor, MONITOR_TYPES
 
 class HeartBeat(BSCTModelMixin , models.Model):
     """ Result of a monitoring test """
     
-    monitor = models.ForeignKey(Monitor, verbose_name=_('Monitor master'))
+    monitor = models.ForeignKey('Monitors.Monitor', verbose_name=_('Monitor master'))
     time = models.DateTimeField(default=datetime.now(), verbose_name=_('Date of triggering'))
     is_up = models.BooleanField(verbose_name=_('Host is up'))
     delay = models.FloatField(verbose_name=_('Delay'), null=True, blank=True)

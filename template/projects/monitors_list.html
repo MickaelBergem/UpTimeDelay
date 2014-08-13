@@ -1,0 +1,83 @@
+{% extends 'bsct/plain/list.html' %}
+{% load i18n %}
+
+{% load uptimedelay %}
+{% load bscttags %}
+
+            {% block BSCT_LIST_ITEMS_HEADER %}
+
+                <th>{% trans "Host" %}</th>
+                <th>{% trans "State" %}</th>
+                <th>{% trans "Availability" %}</th>
+                <th>{% trans "Mean delay" %}</th>
+                <th>{% trans "Actions" %}</th>
+
+            {% endblock %}
+
+        {% block BSCT_LIST_ITEMS_ROWS %}
+        {% for object in object_list %}
+        <tr{% if object.is_up == False %} class="danger"{% elif object.is_up == None %} class="warning"{% endif %}>
+            <td>
+                    {{object.host}}
+            </td>
+            <td>
+                    {{object.is_up|badge_updown|safe}}
+            </td>
+            <td>
+                    {{object.availability}}
+            </td>
+            <td>
+                    {{object.delay}}
+            </td>
+
+            <td>
+                {% block BSCT_LIST_ITEMS_ACTIONS %}
+                <a
+                    class = 'btn btn-default btn-sm'
+                    href  = '{{ object.get_absolute_url }}'
+                >
+                    {% trans "Details" %}
+                </a>
+                <a
+                    class = 'btn btn-default btn-sm'
+                    href  = '{{ object.get_update_url }}'
+                    title = "{% trans "Update" %}"
+                >
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </a>
+                <a
+                    class = 'btn btn-default btn-sm'
+                    href  = '{{ object.get_delete_url }}'
+                    title = "{% trans "Delete" %}"
+                >
+                    <span class="glyphicon glyphicon-trash"></span>
+                </a>
+
+                {% endblock %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" class="warning text-center">{% trans "No" %} {% get_verbose_name object_list.model %} !</td></tr>
+        {% endfor %}
+        {% endblock %}
+
+
+{% block BSCT_LIST_CREATE_LINK %}
+{% if object_list.model.get_create_url %}
+<div class="btn-group">
+    <a
+        class = 'btn btn-primary'
+        href  = '{{object_list.model.get_create_url }}'
+    >
+        {% trans "New" %} {% get_verbose_name object_list.model %}
+    </a>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block BSCT_LIST_EXTRA_INFO %}
+{% endblock %}
+
+{% block BSCT_LIST_PAGINATION %}
+{% include 'bsct/plain/paginator.html' %}
+{% endblock %}

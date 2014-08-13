@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime
 from django.utils.translation import ugettext as _
 from bsct.models import BSCTModelMixin
+from NetworkTests.models import HeartBeat
 
 MONITOR_TYPES = (('P','ping'),('H','http-head'))
 
@@ -37,7 +38,13 @@ class Monitor(BSCTModelMixin , models.Model):
     
     def __unicode__(self):
         return "Monitor {} for {}".format(self.type, self.host)
-        
+
+    def is_up(self):
+        try:
+            return HeartBeat.objects.filter(monitor_id=self.id).latest("time").is_up
+        except HeartBeat.DoesNotExist:
+            return None
+
     class Meta:
         verbose_name = _('Monitor')
         verbose_name_plural = _('Monitors')

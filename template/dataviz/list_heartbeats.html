@@ -8,7 +8,7 @@
 {% include 'dataviz/monitor-details.html' %}
 
 {% if object.heartbeats|length > 0 %}
-{{ object.heartbeats|graph_delay_pastNd:1 }}
+{{ object.heartbeats|graph_delay_pastNd:0.5 }}
 
 {% include 'dataviz/table-delay.html' %}
 
